@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Room</title>
+    <link rel="stylesheet" href="css/room.css">
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
+</head>
+<body>
+    <div>
+        <%- include('../partials/header')-%>
+    </div>
+    <h1 class="title">Welcome</h1>
+    <div id="container">
+        <div id="contacts">
+            <ul id="list-contact" class="list-contact"></ul>
+        </div>
+        <div id="chat">
+            <div id="chat__messages">
+            </div>
+            <div id="chat__input">
+                <input id="chat__input__message" type="text" name="message" placeholder="Enter the message">
+                <ion-icon id="chat__input__message__send__icon" name="send-outline"></ion-icon>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <%- include('../partials/footer')-%>
+    </div>
+    <input type="hidden" name="username" id="username" value=<%= user %>>
+    <script src="js/room.js"></script>
+    <script>
+        const socket = io.connect('http://localhost:3000');
+        const me = $('#username').val();
+        
+        if (!me) {
+            window.location = "/";
+        }
+
+        socket.on('connect', function(data) {
+            socket.emit('user', me);
+        });
+
+        $("#chat__input__message__send__icon").click(function() {
+            const message = $("#chat__input__message").val();
+            if (!message) { return; }
+            socket.emit('message', { user: me, message });
+            $('#chat__input__message').val("")
+        });
+
+        socket.on('message', function({user, message}) {
+            if (user === me) {
+                $('#chat__messages').append(`
+                    <div class="chat__message contact-chat-me">
+                        <span class="chat-username">${me}</span>
+                        <span class="contact-me">${message}</span>
+                    </div>
+                `);
+            } else {
+                $('#chat__messages').append(`
+                <div class="chat__message contact-chat-other">
+                        <span class="chat-username">${user}</span>
+                        <span class="contact-other">${message}</span>
+                    </div>
+                `);
+            }
+        });
+
+        socket.on('user', function({ users }){
+            console.log("Users:", users);
+            $('#list-contact').html('');
+            for (const user of users) {
+                if (user === me) {
+                    $('#list-contact').append(`
+                        <li class="contact-item contact-me">
+                            <span class="contact-item-name">${user}</span>
+                        </li>
+                    `);
+                } else {
+                    $('#list-contact').append(`
+                        <li class="contact-item contact-other">
+                            <span class="contact-item-name">${user}</span>
+                        </li>
+                    `);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;1,400&display=swap');
+
+*, *::before, *::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(to right, #CC5333, #23074D);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.title {
+    position: absolute;
+    color: #FFF;
+    text-align: center;
+    left: calc(50% - 50px);
+    top: 30px;
+    text-transform: capitalize;
+}
+
+#container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    padding: 2rem;
+}
+
+#contacts {
+    background: #23074D;
+    width: 15rem;
+    height: 40rem;
+}
+
+#chat {
+    position: relative;
+    background: #FFF;
+    width: 50rem;
+    height: 40rem;
+    min-width: 240px;
+}
+
+.list-contact {
+    background-color: #330A70;
+    cursor: pointer;
+    min-width: 240px;
+}
+
+.contact-item {
+    display: flex;
+}
+
+.contact-item-img {
+    border-radius: 30px;
+    margin: 5px 20px;
+}
+
+.contact-item-name {
+    color: #FFF;
+    padding: 10px 20px;
+}
+
+#chat__input {
+    position: absolute;
+    background: #CCC;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+#chat__input__message {
+    width: 100%;
+    padding: 1rem;
+    background: #CC5333;
+    color: #FFF;
+    border: none;
+    font-weight: bold;
+}
+
+#chat__input__message::placeholder {
+    color: #FFF;
+}
+
+#chat__input__message__send__icon {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    cursor: pointer;
+    color: #FFF;
+}
+
+#chat__messages {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat__message {
+    display: flex;
+    padding: 1rem;
+    position: relative;
+}
+
+.chat__message > img {
+    width: 30px;
+    height: 30px;
+}
+
+.chat__message .contact-me {
+    padding: 12px;
+    border-radius: 16px;
+    color: #FFF;
+    font-size: 11px;
+}
+
+.chat__message .contact-other {
+    padding: 12px;
+    border-radius: 16px;
+    color: #FFF;
+    font-size: 11px;
+}
+
+.contact-chat-other {
+    float: left;
+    align-self: flex-start;
+}
+
+.contact-chat-me {
+    float: right;
+    align-self: flex-end;
+}
+
+.contact-other {
+    background: #23074D;
+}
+
+.contact-me {
+    background: #CC5333;
+}
+
+.chat-username {
+    color: #525252;
+    font-size: 10px;
+    position: relative;
+    top: 12px;
+    left: -7px;
+}
